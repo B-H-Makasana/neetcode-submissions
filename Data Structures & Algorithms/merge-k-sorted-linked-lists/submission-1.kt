@@ -1,0 +1,47 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode(var `val`: Int) {
+ *     var next: ListNode? = null
+ * }
+ */
+
+class Solution {
+    fun mergeKLists(lists: Array<ListNode?>): ListNode? {
+        if(lists.isEmpty()) {
+            return null
+        }
+        for(i in 1 until lists.size) {
+            lists[i] = mergeList(lists[i-1],lists[i])
+        }
+        return lists[lists.size-1]
+    }
+
+    fun mergeList(node1:ListNode?,node2:ListNode?) : ListNode?{
+        val dummy = ListNode(0)
+        var tail:ListNode? = dummy
+         var l1 = node1
+         var l2 = node2
+
+        while(l1!=null && l2!=null) {
+            if(l1.`val`<l2.`val`) {
+                tail?.next = l1
+                l1 = l1.next
+            } else {
+                tail?.next = l2
+                l2 = l2.next
+            }
+            tail = tail?.next
+        }
+        while(l1!=null){
+            tail?.next = l1
+            l1 = l1.next
+            tail = tail?.next
+        }
+        while(l2!=null){
+             tail?.next = l2
+             l2 = l2.next
+             tail = tail?.next
+        }
+        return dummy.next
+    }
+}

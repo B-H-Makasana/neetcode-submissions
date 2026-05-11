@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool hasDuplicate(vector<int>& nums) {
+        unordered_map<int, int> umap;
+        for (int i = 0; i < nums.size(); i++) {
+                umap[i] = 0;
+              }
+
+    for (int j = 0; j<nums.size(); j++) {
+            if(umap[nums[j]]>0) {
+                return true;
+            } else {
+                umap[nums[j]]++;
+            }
+          }
+    return false;
+
+    }
+};
